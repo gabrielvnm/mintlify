@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "TaskAPI",
   "colors": {
-    "primary": "#0000B0",
+    "primary": "03A062",
     "light": "#000050",
-    "dark": "#0000B0"
+    "dark": "03A062"
   },
   "navigation": {
     "global": {
