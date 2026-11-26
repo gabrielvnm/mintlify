@@ -23,13 +23,22 @@
       ]
     },
     "pages": [
-      "testing",
+      "page2",
       {
         "group": "Getting Started",
         "pages": [
+          "testing",
           "index",
           "quickstart"
         ]
+      },
+      {
+        "group": "Endpoints",
+        "pages": []
+      },
+      {
+        "group": "Errors",
+        "pages": []
       }
     ]
   },
