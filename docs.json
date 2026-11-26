@@ -27,9 +27,8 @@
       {
         "group": "Getting Started",
         "pages": [
-          "testing",
           "index",
-          "quickstart"
+          "testing"
         ]
       },
       {
