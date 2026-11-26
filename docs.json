@@ -1,0 +1,16 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "TaskFlow API Documentation",
+  "colors": {
+    "primary": "#2563EB"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": ["index"]
+      }
+    ]
+  }
+}
