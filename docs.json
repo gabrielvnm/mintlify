@@ -27,17 +27,14 @@
       {
         "group": "Getting Started",
         "pages": [
-          "index",
-          "testing"
+          "testing",
+          "concepts",
+          "troubleshoot"
         ]
       },
       {
         "group": "API Reference",
         "openapi": "openapi.yaml"
-      },
-      {
-        "group": "Errors",
-        "pages": []
       }
     ]
   },

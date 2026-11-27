@@ -2,4 +2,154 @@
 title: "Quickstart"
 ---
 
-This is a test , let's see how it looks when published
+Here's how you can get started with the API in 5 steps:
+
+## Before you start
+
+All TaskFlow requests require an API key sent as a Bearer token. Store it in an environment variable so you don't paste the literal key into every command or commit it to a repository:
+
+```bash
+export TASKFLOW_API_KEY="your-api-key-here"
+```
+
+Every request below uses `$TASKFLOW_API_KEY`. If you see a `401 Unauthorized`, confirm the variable is set and the header reads `Authorization: Bearer <your-key>`.
+
+## 1. Create a project
+
+The architecture of the API requires a project in order to create tasks, so the first step is to create a project.
+
+```shellscript CURL
+curl -X POST https://test-writechoice.onrender.com/projects \
+  -H "Authorization: Bearer $TASKFLOW_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "My first project",
+    "description": "First project using TaskFlow API"
+  }'
+```
+
+Expected response: `201 created`
+
+Example response:
+
+```json JSON
+{
+  "project_id": "5c208dcd-a919-4634-917b-74c74965c0b0",
+  "name": "My first project",
+  "description": "First project using TaskFlow API",
+  "created_at": "2026-11-26T23:37:06.425Z"
+}
+```
+
+Save the **project_id** from the response, you will need it for the next steps.
+
+## 2. Create a task in the project
+
+Next you will create a task in the project that was just created.
+
+<Warning>
+  Remember to change the **project_id** to the id you saved form the previous step!
+</Warning>
+
+```shellscript CURL
+curl -X POST https://test-writechoice.onrender.com/tasks \
+  -H "Authorization: Bearer $TASKFLOW_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "project_id": "YOUR-PROJECT-ID-HERE",
+    "title": "First task",
+    "description": "First task created using TaskFlow API"
+  }'
+```
+
+Expected response: `201 created`
+
+Example response:
+
+```json JSON
+{
+  "task_id": "f0b34b2f-ae7b-46a6-9d8d-c807a7cf9904",
+  "project_id": "YOUR-PROJECT-ID-HERE",
+  "title": "First task",
+  "description": "First task created using TaskFlow API",
+  "created_at": "2026-11-26T23:59:05.699Z",
+  "updated_at": "2026-11-26T23:59:05.699Z"
+}
+```
+
+New tasks always start as `pending`. Again, remember to **save the** `task_id `for future use.
+
+## 3. List tasks in the project
+
+Next, check the list of tasks.
+
+<Warning>
+  Remember to change the **project_id** to the id you saved form the first step!
+</Warning>
+
+```shellscript CURL
+curl https://test-writechoice.onrender.com/projects/YOUR-PROJECT-ID-HERE/tasks \
+  -H "Authorization: Bearer $TASKFLOW_API_KEY"
+```
+
+The response (`200 OK`) contains a `total` count and a `tasks` array. See the<br />[API Reference](https://gvnm.mintlify.site/api-reference/create-a-project) for the full schema.
+
+## 4. Update task status
+
+Next, change the task status from `pending` to `in_progress`.
+
+<Warning>
+  This time, you need to change the **task_id** to the id you got from step 2!
+</Warning>
+
+```shellscript CURL
+curl -X PATCH https://test-writechoice.onrender.com/tasks/YOUR-TASK-ID-HERE \
+  -H "Authorization: Bearer $TASKFLOW_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ "status": "in_progress" }'
+```
+
+Expected response: `200 OK`
+
+Example response:
+
+```json JSON
+{
+  "task_id": "f0b34b2f-ae7b-46a6-9d8d-c807a7cf9904",
+  "project_id": "5c208dcd-a919-4634-917b-74c74965c0b0",
+  "title": "First task",
+  "description": "First task created using TaskFlow API",
+  "status": "in_progress",
+  "created_at": "2026-11-26T23:59:05.699Z",
+  "updated_at": "2026-11-27T00:00:09.953Z"
+}
+```
+
+Notice the new `updated_at` field after `created_at`.
+
+## 5. Delete the task
+
+Finally, you can delete the task that was created and updated.
+
+<Warning>
+  Don't forget to change the **task_id** to the id you got from step 2!
+</Warning>
+
+```shellscript CURL
+curl -X DELETE https://test-writechoice.onrender.com/tasks/YOUR-TASK-ID-HERE \
+  -H "Authorization: Bearer $TASKFLOW_API_KEY"
+```
+
+Expected response: `200 OK`
+
+Example response:
+
+```json JSON
+{
+  "message": "Task 'f0b34b2f-ae7b-46a6-9d8d-c807a7cf9904' was successfully deleted."
+}
+```
+
+## What to do next
+
+You can go to Concepts page to check the project/task model and lifecycle, check Troubleshooting if you run into any problems, and API Reference to check every available endpoint and schema.
